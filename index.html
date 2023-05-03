@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Reading Planner App</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<header>
+		<h1>Reading Planner App</h1>
+		<nav class="navbar">
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="reading-list.html">My Reading List</a></li>
+				<li><a href="reading-goals.html">Reading Goals</a></li>
+				<li><a href="reading-recommendations.html">Recommendations</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<section>
+			<h2>Welcome to Reading Planner App</h2>
+			<p>Plan your reading goals and track your progress with Reading Planner App.</p>
+			<a href="#" class="btn" id="get-started-btn">Get Started</a>
+			<div id="setup-modal" class="modal">
+				<div class="modal-content">
+					<span class="close">&times;</span>
+					<h3>Set Up Your Reading List</h3>
+					<p>Enter the books you plan to read:</p>
+					<form>
+						<label for="book1">Book 1:</label>
+						<input type="text" id="book1" name="book1"><br>
+						<label for="book2">Book 2:</label>
+						<input type="text" id="book2" name="book2"><br>
+						<label for="book3">Book 3:</label>
+						<input type="text" id="book3" name="book3"><br>
+						<button type="submit">Submit</button>
+					</form>
+				</div>
+			</div>
+			<script>
+			  // get the modal element
+			  var modal = document.getElementById("setup-modal");
+
+			  // get the button that opens the modal
+			  var btn = document.getElementById("get-started-btn");
+
+			  // get the <span> element that closes the modal
+			  var span = document.getElementsByClassName("close")[0];
+
+			  // when the user clicks on the button, open the modal
+			  btn.onclick = function() {
+			    modal.style.display = "block";
+			  }
+
+			  // when the user clicks on <span> (x), close the modal
+			  span.onclick = function() {
+			    modal.style.display = "none";
+			  }
+
+			  // when the user clicks anywhere outside of the modal, close it
+			  window.onclick = function(event) {
+			    if (event.target == modal) {
+			      modal.style.display = "none";
+			    }
+			  }
+			</script>
+		</section>
+		<section>
+			<h2>My Reading List</h2>
+			<ul>
+				<li>
+					<h3>Book Title</h3>
+					<p>Author Name</p>
+					<p>Genre: Fiction</p>
+					<button class="update-progress-btn">Update Progress</button>
+				</li>
+				<li>
+					<h3>Book Title</h3>
+					<p>Author Name</p>
+					<p>Genre: Non-Fiction</p>
+					<button class="update-progress-btn">Update Progress</button>
+				</li>
+			</ul>
+			<button class="add-new-book-btn">Add New Book</button>
+		</section>
+		<section>
+			<h2>Reading Goals</h2>
+			<form>
+                <section>
+                    <h2>Reading Goals</h2>
+                    <form>
+                        <label for="goal">Set a Reading Goal:</label>
+                        <input type="number" id="goal" name="goal" min="1" max="100" value="1">
+                        <select name="timeframe">
+                            <option value="week">per week</option>
+                            <option value="month">per month</option>
+                            <option value="year">per year</option>
+                        </select>
+                        <button>Set Goal</button>
+                    </form>
+                    <p>Your current reading goal is to read 1 book per week.</p>
+                    <p>You are on track to meet your goal!</p>
+                </section>
+                <section>
+                    <h2>Recommendations</h2>
+                    <ul>
+                        <li>
+                            <h3>Book Title</h3>
+                            <p>Author Name</p>
+                            <p>Genre: Fiction</p>
+                            <button class="add-to-list-btn">Add to Reading List</button>
+                        </li>
+                        <li>
+                            <h3>Book Title</h3>
+                            <p>Author Name</p>
+                            <p>Genre: Non-Fiction</p>
+                            <button class="add-to-list-btn">Add to Reading List</button>
+                        </li>
+                    </ul>
+                    <button>Show More Recommendations</button>
+                </section>
+            </main>
+            <footer>
+                <p>&copy; 2023 Reading Planner App. All rights reserved.</p>
+            </footer>
+            <script src="script.js"></script>
+            <script>
+                // get the modal element
+                var modal = document.getElementById("setup-modal");
+        
+                // get the button that opens the modal
+                var btn = document.getElementById("get-started-btn");
+        
+                // get the <span> element that closes the modal
+                var span = document.getElementsByClassName("close")[0];
+        
+                // when the user clicks on the button, open the modal
+                btn.onclick = function() {
+                    modal.style.display = "block";
+                }
+        
+                // when the user clicks on <span> (x), close the modal
+                span.onclick = function() {
+                    modal.style.display = "none";
+                }
+        
+                // when the user clicks anywhere outside of the modal, close it
+                window.onclick = function(event) {
+                    if (event.target == modal) {
+                        modal.style.display = "none";
+                    }
+                }
+            </script>
+        </body>
+        </html>
+        
+				
