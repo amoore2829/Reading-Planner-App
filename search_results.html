@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Search Results</h1>
+    <ul>
+        {% for book in books %}
+            <li>
+                <h3>{{ book.get('title', 'Unknown') }}</h3>
+                <p>Author: {{ book.get('author_name', ['Unknown'])[0] }}</p>
+                <p>Published: {{ book.get('publish_date', 'Unknown') }}</p>
+                <form action="/add-book" method="POST">
+                    <input type="hidden" name="title" value="{{ book.get('title', '') }}">
+                    <input type="hidden" name="author" value="{{ book.get('author_name', [''])[0] }}">
+                    <input type="hidden" name="genre" value="{{ book.get('subject', [''])[0] }}">
+                    <input type="submit" value="Add Book">
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

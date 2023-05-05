@@ -81,7 +81,145 @@
 					<button class="update-progress-btn">Update Progress</button>
 				</li>
 			</ul>
-			<button class="add-new-book-btn">Add New Book</button>
+			<button id="add-new-book-btn">Add New Book</button>
+			<section>
+				<h2>Search Books</h2>
+				<div id="search-box">
+				  <form id="search-form">
+					<input type="text" id="search-query" name="search_query" placeholder="Search for a book">
+					<button type="submit">Search</button>
+				  </form>
+				</div>
+				<div id="search-results"></div>
+			  </section>
+			  
+			  <script>
+				const searchForm = document.querySelector('#search-form');
+const searchResults = document.querySelector('#search-results');
+const searchPageSize = 5;
+let searchPage = 1;
+
+searchForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+  const searchQuery = document.querySelector('#search-query').value;
+
+  // Send a GET request to the Open Library API with the search query
+  fetch(`http://openlibrary.org/search.json?q=${searchQuery}`)
+    .then(response => response.json())
+    .then(data => {
+      // Extract the book data from the response JSON
+      const books = data.docs.map(book => {
+        return {
+          title: book.title,
+          author: book.author_name ? book.author_name[0] : 'Unknown',
+          cover: `http://covers.openlibrary.org/b/id/${book.cover_i}-M.jpg`,
+          isbn: book.isbn ? book.isbn[0] : 'Unknown'
+        };
+      });
+
+      // Render the search results in the DOM
+      const numResults = books.length;
+      const startIndex = (searchPage - 1) * searchPageSize;
+      const endIndex = Math.min(startIndex + searchPageSize, numResults);
+      const resultsHtml = books.slice(startIndex, endIndex).map(book => {
+        return `
+          <div class="search-result">
+            <img src="${book.cover}">
+            <div>
+              <h3>${book.title}</h3>
+              <p>by ${book.author}</p>
+              <p>ISBN: ${book.isbn}</p>
+              <button class="add-book-btn" data-title="${book.title}" data-author="${book.author}" data-isbn="${book.isbn}">Add to My Reading List</button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      // Render the pagination controls
+      const numPages = Math.ceil(numResults / searchPageSize);
+      const paginationHtml = Array.from({ length: numPages }, (_, i) => {
+        const pageNum = i + 1;
+        return `<button class="pagination-btn ${pageNum === searchPage ? 'active' : ''}" data-page="${pageNum}">${pageNum}</button>`;
+      }).join('');
+
+      searchResults.innerHTML = `
+        <div class="pagination">
+          ${paginationHtml}
+        </div>
+        ${resultsHtml}
+        <div class="pagination">
+          ${paginationHtml}
+        </div>
+      `;
+    });
+});
+
+searchResults.addEventListener('click', (event) => {
+  if (event.target.classList.contains('pagination-btn')) {
+    // Handle pagination button clicks
+    const page = Number(event.target.dataset.page);
+    searchPage = page;
+    searchForm.dispatchEvent(new Event('submit'));
+  } else if (event.target.classList.contains('add-book-btn')) {
+    // Handle "Add to My Reading List" button clicks
+    const title = event.target.dataset.title;
+    const author = event.target.dataset.author;
+    const isbn = event.target.dataset.isbn;
+
+    // Create a new book object and add it to the reading list
+    const book = {
+      title: title,
+      author: author,
+      genre: 'Unknown',
+      progress: 0,
+      isbn: isbn
+    };
+    const readingList = JSON.parse(localStorage.getItem('readingList') || '[]');
+    readingList.push(book);
+    localStorage.setItem('readingList', JSON.stringify(readingList));
+
+    // Display a success message
+    alert(`"${title}" has been added to your reading list!`);
+  }
+});
+
+			  </script>
+			  
+
+
+<script>
+  var addBookBtn = document.getElementById("add-new-book-btn");
+  var bookList = document.querySelector("ul");
+
+  addBookBtn.addEventListener("click", function(event) {
+    event.preventDefault();
+
+    var bookTitle = prompt("Enter the book title:");
+    var authorName = prompt("Enter the author name:");
+    var genre = prompt("Enter the genre:");
+
+    var li = document.createElement("li");
+    var h3 = document.createElement("h3");
+    var p1 = document.createElement("p");
+    var p2 = document.createElement("p");
+    var btn = document.createElement("button");
+
+    h3.textContent = bookTitle;
+    p1.textContent = authorName;
+    p2.textContent = "Genre: " + genre;
+    btn.textContent = "Update Progress";
+    btn.classList.add("update-progress-btn");
+
+    li.appendChild(h3);
+    li.appendChild(p1);
+    li.appendChild(p2);
+    li.appendChild(btn);
+    bookList.appendChild(li);
+  });
+</script>
+
+
+
 		</section>
 		<section>
 			<h2>Reading Goals</h2>

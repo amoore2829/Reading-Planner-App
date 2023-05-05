@@ -114,3 +114,40 @@ window.onclick = function(event) {
   }
 }
 
+// get the "Add New Book" button element
+var addNewBookBtn = document.getElementById("add-new-book-btn");
+
+// add a click event listener to the button
+addNewBookBtn.addEventListener("click", function() {
+  // create a new list item element for the new book
+  var newBookListItem = document.createElement("li");
+  
+  // create a new h3 element for the book title
+  var newBookTitle = document.createElement("h3");
+  newBookTitle.textContent = "New Book Title";
+  
+  // create a new p element for the author name
+  var newBookAuthor = document.createElement("p");
+  newBookAuthor.textContent = "Author Name";
+  
+  // create a new p element for the genre
+  var newBookGenre = document.createElement("p");
+  newBookGenre.textContent = "Genre: Fiction";
+  
+  // create a new button element for updating progress
+  var newBookUpdateProgressBtn = document.createElement("button");
+  newBookUpdateProgressBtn.className = "update-progress-btn";
+  newBookUpdateProgressBtn.textContent = "Update Progress";
+  
+  // add the title, author, genre, and update progress button to the new list item
+  newBookListItem.appendChild(newBookTitle);
+  newBookListItem.appendChild(newBookAuthor);
+  newBookListItem.appendChild(newBookGenre);
+  newBookListItem.appendChild(newBookUpdateProgressBtn);
+  
+  // get the reading list element
+  var readingList = document.querySelector("section:nth-of-type(2) ul");
+  
+  // add the new book list item to the reading list
+  readingList.appendChild(newBookListItem);
+});
